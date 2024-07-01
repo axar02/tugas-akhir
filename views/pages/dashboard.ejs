@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGUnaqKDldTjt-d2ReQBr6bUIe3asGMa8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .main-container {
+            display: flex;
+        }
+
+        .template-container {
+            width: 900px;
+            height: 100vh;
+            flex-grow: 1;
+            background-color: rgb(233, 244, 255);
+            padding: 20px;
+            margin-left: 10px;
+        }
+
+        .sidebar {
+            background-color: #ffffff;
+            width: 20vw;
+            height: 100vh;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            flex-shrink: 0;
+            padding: 20px;
+            overflow-x: hidden;
+            border-radius: 0px 30px 30px 0px;
+            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+        }
+        .nav-item.dropdown .dropdown-menu {
+            background-color: #ffffff;
+            border-radius: 10px;
+            border: none; /* Menghilangkan border */
+            display: none;
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+            min-width: 200px;
+            z-index: 999;
+        }
+        
+        .nav-item.dropdown .dropdown-menu a.dropdown-item {
+            color: #8a8a8a;
+            font-weight: bold;
+            padding: 10px 80px;
+            text-decoration: none;
+            display: flex;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item.dropdown .dropdown-menu a.dropdown-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .logo {
+            gap: 300px;
+            padding: 15px;
+        }
+
+        .logo-name {
+            overflow: visible;
+            font-size: 22.66px;
+            color: #5285f2;
+            line-height: 26.04px;
+            font-weight: bold;
+        }
+
+        .nav li {
+            display: inline-flex;
+        }
+
+        .nav-link {
+            color: #8a8a8a;
+            font-weight: bold;
+            padding: 15px 30px 15px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover,
+        .open a {
+            color: #5285f2;
+        }
+
+        .open {
+            color: #5285f2;
+            background-color: #f0f7ff;
+            transition: 0.3s;
+        }
+
+        .template-container {
+            width: 75vw;
+            height: 100vh;
+            flex-grow: 1;
+            background-color: rgb(249, 250, 252);
+            padding: 30px;
+            margin-left: 0px;
+        }
+
+        #m-2 {
+            margin-left: 3%;
+            margin-right: 3%;
+            width: 71vw;
+        }
+
+        #chat-box {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            filter: drop-shadow(0px 4px 4px rgba(204, 204, 204, 0.25));
+            padding: 2rem;
+            width: 71vw;
+            height: 80vh;
+            border: none;
+            overflow-y: auto;
+            margin-top: 3%;
+            margin-left: 3%;
+        }
+        /* Custom Scrollbar */
+#chat-box::-webkit-scrollbar {
+    width: 8px; /* Lebar scrollbar */
+}
+
+#chat-box::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Warna track scrollbar */
+    border-radius: 10px; /* Radius untuk track scrollbar */
+}
+
+#chat-box::-webkit-scrollbar-thumb {
+    background: #bebebe; /* Warna thumb scrollbar */
+    border-radius: 10px; /* Radius untuk thumb scrollbar */
+}
+
+#chat-box::-webkit-scrollbar-thumb:hover {
+    background: #b9b9b9; /* Warna thumb scrollbar saat hover */
+}
+
+/* Firefox scrollbar */
+#chat-box {
+    scrollbar-width: thin; /* Lebar scrollbar pada Firefox */
+    scrollbar-color: #e4e4e4 #f1f1f1; /* Warna thumb dan track scrollbar pada Firefox */
+}
+
+        #map {
+            height: 45vh;
+            width: 65vw;
+            margin-top: 10%;
+        }
+
+        #warningTitle{
+            text-align: center;
+        }
+        #warningTitle1{
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 14px;
+        }
+        #rssi-rata {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        #snr-rata {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        #delay-rata {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        #loss-rata {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        #rata-rata {
+            float: left;
+            text-align: center;
+            background-color: #eeeeee;
+            border-radius: 0.75rem;
+            
+            filter: drop-shadow(0px 4px 4px rgba(204, 204, 204, 0.25));
+            padding: 2rem;
+            width: 14vw;
+            height: 20vh;
+            border: none;
+            margin-top: 10%;
+            margin-bottom: 2%;
+            margin-left: 2.6%;
+            
+        }
+        #warningBox {
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 0%;
+            width: 30.5vw;
+            margin-left: 2.6%;
+            float: left;
+            font-weight: bold;
+            border: 1px solid rgb(167, 167, 167);
+        }
+        #warning-analisa {
+            background-color: rgb(255, 255, 255);
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            border-color: black;
+            margin-top: 0%;
+            margin-left: 2.6%;
+            font-size: 18px;
+            margin-bottom: 5%;
+            border: 1px solid rgb(167, 167, 167);
+            width: 61vw; /* Adjust width as needed */
+            height: 7vh;
+            float: left; /* Align warning boxes side by side */
+        }
+        #warningBox2 {
+            background-color: rgb(255, 255, 255);
+            text-align: center;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+            border-color: black;
+            margin-top: 0%;
+            border: 1px solid rgb(167, 167, 167);
+            width: 30.5vw; /* Adjust width as needed */
+            float: left; /* Align warning boxes side by side */
+        }
+
+        #rssiChart {
+            height: 30vh; /* Tinggi grafik yang lebih besar */
+            width: 45vw;/* Lebar grafik diatur sesuai kebutuhan, misalnya 50% lebar viewport dikurangi margin */
+            
+        }
+
+        #chart {
+            margin-left: 6%;
+            height: 60vh;
+        }
+        
+    </style>
+</head>
+
+<body class="bg-default" style="background-color: rgb(249, 250, 252)">
+    <!-- Main container with sidebar and chat container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <%- include('../partials/sidebar') %>
+
+        <div class="template-container">
+            <div id="m-2">
+                <div class="content d-flex flex-column">
+                    <div class="d-flex justify-content-between">
+                        <div class="title">
+                            <h4><strong>Sistem komunikasi pada Meter Air Cerdas</strong></h4>
+                        </div>
+                        <div class="flex gap-3">
+                            <!-- button kembali -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="chat-box">
+                <div id="m-3">
+                    <div>
+                        <h4 id="warningTitle">Analisis Parameter komunikasi</h4>
+                        <h6 id="warningBox">---</h6>
+                        <h6 id="warningBox2">---</h6>
+                    </div>
+                    <div id="chart">
+                        <canvas id="rssiChart"></canvas>
+                    </div>
+                    <div>
+                        <div id="rata-rata">
+                            <h4 id="warningTitle1">Rata-rata RSSI</h4>
+                            <h2 id="rssi-rata">---</h2>
+                        </div>
+                        <div id="rata-rata">
+                            <h4 id="warningTitle1">Rata-rata SNR</h4>
+                            <h2 id="snr-rata">---</h2>
+                        </div>
+                        <div id="rata-rata">
+                            <h4 id="warningTitle1">Rata-rata Loss</h4>
+                            <h2 id="loss-rata">---</h2>
+                        </div>
+                        <div id="rata-rata">
+                            <h4 id="warningTitle1">Rata-rata Delay</h4>
+                            <h2 id="delay-rata">---</h2>
+                        </div>
+                        <div>
+                            <h6 id="warning-analisa">---</h6>
+                        </div>
+                    </div>
+                    <div>
+                        <div id="map"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let map;
+        let marker;
+        let rssiChart;
+        let previousDataIDs = []; // Menyimpan ID data sebelumnya
+        let totalPacketLoss = 0; // Menyimpan total jumlah packet loss
+        let totalPacketsReceived = 0; // Menyimpan total jumlah data diterima
+        let previousCounter = null; // Counter sebelumnya
+
+        // Arrays to store data for averaging
+        let rssiData = [];
+        let snrData = [];
+        let delayData = [];
+
+        function initMap(latitude, longitude) {
+            const initialPosition = { lat: latitude, lng: longitude };
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: initialPosition,
+                styles: []
+            });
+            marker = new google.maps.Marker({
+                position: initialPosition,
+                map: map
+            });
+        }
+
+        function updateMap(latitude, longitude) {
+            const newPosition = { lat: latitude, lng: longitude };
+            if (map && marker) {
+                map.setCenter(newPosition);
+                marker.setPosition(newPosition);
+            } else {
+                initMap(latitude, longitude);
+            }
+        }
+
+        function updateWarningBox(rssi, snr, delay) {
+            const warningBox = document.getElementById('warningBox');
+            let warnings = [];
+            let color;
+
+            if (rssi < -117) warnings.push("Sinyal RSSI lemah");
+            if (snr < 0) warnings.push("SNR rendah");
+            if (delay > 0.4) warnings.push("Delay tinggi");
+
+            switch (warnings.length) {
+                case 0:
+                    color = 'green';
+                    warningBox.innerHTML = 'Semua parameter dalam batas normal';
+                    break;
+                case 1:
+                    color = 'yellow';
+                    warningBox.innerHTML = warnings.join('');
+                    break;
+                case 2:
+                    color = 'peru';
+                    warningBox.innerHTML = warnings.join(' dan ');
+                    break;
+                case 3:
+                    color = 'orange';
+                    warningBox.innerHTML = warnings.join(' dan ');
+                    break;
+            }
+
+            warningBox.style.backgroundColor = color;
+        }
+
+        function updateAverageWarningBox() {
+            const avgRssi = rssiData.reduce((a, b) => a + b, 0) / rssiData.length || 0;
+            const avgSnr = snrData.reduce((a, b) => a + b, 0) / snrData.length || 0;
+            const avgDelay = delayData.reduce((a, b) => a + b, 0) / delayData.length || 0;
+            const avgPacketLoss = (totalPacketLoss / (totalPacketsReceived + totalPacketLoss)) * 100 || 0;
+
+            const warningAnalisa = document.getElementById('warning-analisa');
+            let warnings = [];
+            let color;
+
+            if (avgRssi < -117) warnings.push("Rata-rata RSSI lemah");
+            if (avgSnr < 0) warnings.push("Rata-rata SNR rendah");
+            if (avgDelay > 0.4) warnings.push("Rata-rata Delay tinggi");
+            if (avgPacketLoss > 25) warnings.push("Rata-rata Packet Loss tinggi");
+
+            switch (warnings.length) {
+                case 0:
+                    color = 'green';
+                    warningAnalisa.innerHTML = 'Semua parameter dalam batas normal';
+                    break;
+                case 1:
+                    color = 'yellow';
+                    warningAnalisa.innerHTML = warnings.join('');
+                    break;
+                case 2:
+                    color = 'peru';
+                    warningAnalisa.innerHTML = warnings.join(' dan ');
+                    break;
+                case 3:
+                    color = 'orange';
+                    warningAnalisa.innerHTML = warnings.join(' dan ');
+                    break;
+                case 4:
+                    color = 'red';
+                    warningAnalisa.innerHTML = warnings.join(' dan ');
+                    break;
+            }
+
+            warningAnalisa.style.backgroundColor = color;
+        }
+
+        function initRssiChart() {
+            const ctx = document.getElementById('rssiChart').getContext('2d');
+            rssiChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'RSSI (dBm)',
+                        data: [],
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: 'SNR (dB)',
+                        data: [],
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: 'Delay (s)',
+                        data: [],
+                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 20 // Atur jarak antar ticks (misalnya setiap 10 unit)
+                            },
+                            grid: {
+                                display: true,
+                                color: "#b9b9b9" // Warna dan opacity dari gridlines
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false // Nonaktifkan gridlines pada sumbu X
+                            }
+                        }
+                    },
+                    elements: {
+                        line: {
+                            tension: 0.4 // Atur ketegangan garis untuk membuat garis lebih halus atau lebih lurus
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateRssiChart(rssi, snr, delay, time) {
+            // Menggunakan waktu dari server sebagai label
+            const timestamp = new Date(time).toLocaleTimeString();
+
+            // Menambahkan data baru ke setiap dataset
+            rssiChart.data.labels.push(timestamp);
+            rssiChart.data.datasets[0].data.push(rssi);
+            rssiChart.data.datasets[1].data.push(snr);
+            rssiChart.data.datasets[2].data.push(delay);
+
+            rssiChart.update();
+        }
+
+        function updateAverages() {
+            const avgRssi = rssiData.reduce((a, b) => a + b, 0) / rssiData.length || 0;
+            const avgSnr = snrData.reduce((a, b) => a + b, 0) / snrData.length || 0;
+            const avgDelay = delayData.reduce((a, b) => a + b, 0) / delayData.length || 0;
+            const avgPacketLoss = (totalPacketLoss / (totalPacketsReceived + totalPacketLoss)) * 100 || 0;
+
+            document.getElementById('rssi-rata').innerText = avgRssi.toFixed(2) + ' dBm';
+            document.getElementById('snr-rata').innerText = avgSnr.toFixed(2) + ' dB';
+            document.getElementById('delay-rata').innerText = avgDelay.toFixed(2) + ' s';
+            document.getElementById('loss-rata').innerText = avgPacketLoss.toFixed(2) + ' %';
+
+            updateAverageWarningBox();
+        }
+
+        function fetchData() {
+            fetch('http://localhost:8000/api/data')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (!data || !Array.isArray(data)) {
+                        console.log('No valid data received');
+                        return;
+                    }
+
+                    const newData = data.filter(item => !previousDataIDs.includes(item.f_cnt));
+
+                    newData.forEach(newItem => {
+                        if (newItem.latitude && newItem.longitude) {
+                            updateMap(parseFloat(newItem.latitude), parseFloat(newItem.longitude));
+                        }
+
+                        if (newItem.rssi && newItem.snr && newItem.delay) {
+                            const rssi = parseFloat(newItem.rssi);
+                            const snr = parseFloat(newItem.snr);
+                            const delay = parseFloat(newItem.delay);
+
+                            updateRssiChart(rssi, snr, delay, newItem.time);
+                            updateWarningBox(rssi, snr, delay);
+
+                            // Add data to arrays for averaging
+                            rssiData.push(rssi);
+                            snrData.push(snr);
+                            delayData.push(delay);
+                            
+                            // Increment the total number of packets received
+                            totalPacketsReceived++;
+                        }
+
+                        // Hitung packet loss berdasarkan f_cnt
+                        if (previousCounter !== null) {
+                            const currentCounter = parseInt(newItem.f_cnt);
+                            const packetLoss = currentCounter - previousCounter - 1;
+                            if (packetLoss > 0) {
+                                totalPacketLoss += packetLoss;
+                                const warningBox2 = document.getElementById('warningBox2');
+                                warningBox2.innerText = "Paket loss: " + totalPacketLoss;
+                                warningBox2.style.backgroundColor = packetLoss > 1 ? 'red' : 'inherit';
+                            }
+                        }
+
+                        // Simpan nilai counter saat ini untuk perbandingan berikutnya
+                        previousCounter = parseInt(newItem.f_cnt);
+                    });
+
+                    // Simpan ID data sebelumnya
+                    previousDataIDs = data.map(item => item.f_cnt);
+
+                    // Update averages
+                    updateAverages();
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+
+        setInterval(fetchData, 1000);
+
+        window.onload = function () {
+            initMap(0, 0); // Default position
+            initRssiChart();
+            fetchData();
+        };
+
+        
+    </script>    
+
+</body>
+
+</html>

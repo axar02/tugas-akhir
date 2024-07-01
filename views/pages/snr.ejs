@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SNR</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body class="bg-default" style="background-color: rgb(249, 250, 252)">
+    <!-- Main container with sidebar and chat container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <%- include('../partials/sidebar') %>
+
+        <div class="template-container">
+            <div id="m-2">
+                <div class="content d-flex flex-column">
+                    <div class="d-flex justify-content-between">
+                        <div class="title">
+                            <h4><strong>SNR</strong></h4>
+                            <p class="text-sm font-normal">Kamu dapat melihat data yang terkirim.</p>
+                        </div>
+                        <div class="flex gap-3">
+                            <!-- <button class="py-1 px-1 flex items-center bg-dust text-sm px-1 hover:bg-jet-300 active:bg-jet-700 active:text-white rounded-lg font-medium">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mr-2 css-vubbuv" focusable="false" aria-hidden="true" viewBox="0 0 38 25">
+                                    <path d="M0 0h24v24H0z" style="fill: rgb(255, 255, 255); fill-opacity: 0.0117647; stroke: none;">
+                                    </path><path d="M12.367 8 6 14.367l6.367 6.36" transform="scale(.5)" style="fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke: rgb(0, 0, 0); stroke-opacity: 1; stroke-miterlimit: 4;">
+                                    </path><path d="M6 14.367h22.672c6.883 0 12.539 5.438 12.812 12.313C41.766 33.953 35.945 40 28.672 40H12" transform="scale(.5)" style="fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke: rgb(0, 0, 0); stroke-opacity: 1; stroke-miterlimit: 4;">
+                                    </path>
+                                </svg>kembali
+                            </button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="chat-box-parameter">
+                <div id="m-3">
+                    <div class="title2">
+                        <h5> Detail Parameter SNR</h5>
+                    </div>
+                </div>
+
+                <div class="table-con-parameter">
+                    <div class="table-parameter">
+                        <table class="table-parameter">
+                            <thead>
+                                <tr>
+                                    <th scope="col">SNR</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-snr" class="table-snr">
+                                <!-- Table rows will be added dynamically here -->
+                                <tr>
+                                    <td>
+                                        <div class="flex flex-col justify-center items-center h-full" id="image-placeholder">
+                                            <svg width="200" height="150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M0 0h200v200H0z"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M207 65a7 7 0 1 1 0 14h-40a7 7 0 1 1 0 14h22a7 7 0 1 1 0 14h-10.174c-4.874 0-8.826 3.134-8.826 7 0 2.577 2 4.911 6 7a7 7 0 1 1 0 14H93a7 7 0 1 1 0-14H54a7 7 0 1 1 0-14h40a7 7 0 1 0 0-14H69a7 7 0 1 1 0-14h40a7 7 0 1 1 0-14h98Zm0 28a7 7 0 1 1 0 14 7 7 0 0 1 0-14Z" fill="#FEEFE6"></path>
+                                                <path d="M120.5 133c18.502 0 33.5-14.998 33.5-33.5 0-18.501-14.998-33.5-33.5-33.5C101.998 66 87 80.999 87 99.5c0 18.502 14.998 33.5 33.5 33.5Z" fill="#FEEFE6" stroke="#F66D22" stroke-width="2.5"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M115.132 125.494c1.759.325 3.548.493 5.368.506 14.636 0 26.5-11.864 26.5-26.5 0-14.635-11.864-26.5-26.5-26.5-3.76 0-7.336.783-10.576 2.195a26.605 26.605 0 0 0-13.028 12.247A26.387 26.387 0 0 0 94 99.5a26.403 26.403 0 0 0 6.684 17.596" fill="#fff"></path>
+                                                <path d="M115.132 125.494c1.759.325 3.548.493 5.368.506 14.636 0 26.5-11.864 26.5-26.5 0-14.635-11.864-26.5-26.5-26.5-3.76 0-7.336.783-10.576 2.195a26.605 26.605 0 0 0-13.028 12.247A26.387 26.387 0 0 0 94 99.5a26.403 26.403 0 0 0 6.684 17.596M103.797 120.075a26.491 26.491 0 0 0 7.204 4.172" stroke="#F66D22" stroke-width="2.5" stroke-linecap="round"></path>
+                                                <path d="m148 126 6 6" stroke="#F66D22" stroke-width="2.5"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M153.03 131.03a4.849 4.849 0 0 0 0 6.855l11.086 11.085a4.846 4.846 0 1 0 6.854-6.854l-11.086-11.086a4.848 4.848 0 0 0-6.854 0Z" fill="#FEEFE6" stroke="#F66D22" stroke-width="2.5"></path>
+                                                <path d="m158 133 11 11" stroke="#fff" stroke-width="2.5" stroke-linecap="round"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M114 88c0 11.598 9.402 21 21 21 2.278 0 4.472-.363 6.526-1.034-3.353 8.321-11.503 14.195-21.026 14.195-12.515 0-22.66-10.146-22.66-22.661 0-11.34 8.33-20.735 19.205-22.399A20.913 20.913 0 0 0 114 88Z" fill="#FEEFE6"></path>
+                                                <path d="M121 81c-1.273 0-2.518.125-3.721.364m-3.634 1.112C106.804 85.351 102 92.114 102 100" stroke="#F66D22" stroke-width="2.5" stroke-linecap="round"></path>
+                                                <path d="M174.176 99.777H166M180.5 92h-17.176H180.5Zm7 0h-2.221 2.221ZM84.176 121.777H76M79.5 113H62.324 79.5Zm-23 0h-4.221H56.5Z" stroke="#F66D22" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                            </svg>
+                                            <div class="MuiBox-root css-x6lau9">
+                                                <h2 class="MuiTypography-root MuiTypography-h6 text-base css-40peaf">Not Found</h2>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="m-4">
+                    <div class="title2">
+                        <p id="total-data">Total data masuk: 0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="box-parameter">
+                <div id="m-5">
+                    <div class="title2">
+                        <h4>Rata Rata</h4>
+                        <p class="big-text" id="snr-rata">---</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="box-parameter-total">
+                <div id="m-4">
+                    <div class="title2">
+                        <h4>Jumlah Data</h4>
+                        <p class="text-sm font-normal">Nilai SNR > Standar</p>
+                        <p class="big-text-rssi"id="snr-limit">---</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../js/snr.js"></script>
+ 
+</body>
+
+</html>

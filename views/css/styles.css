@@ -1,0 +1,301 @@
+.main-container {
+    display: flex;
+    max-width: 1024px;
+    max-height: 768px;
+}
+
+.sidebar {
+    background-color: #ffffff;
+    width: 20vw;
+    height: 100vh;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    flex-shrink: 0;
+    padding: 20px;
+    overflow-x: hidden;
+    border-radius: 0px 30px 30px 0px;
+    filter: drop-shadow(0px 4px 4px rgba(180, 180, 180, 0.25));
+    /*&:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 1);
+    }*/
+}
+
+.logo {
+    gap: 300px;
+    padding: 15px;
+}
+
+.logo-name {
+    overflow: visible;
+    font-size: 22.66px;
+    color: #5285f2;
+    line-height: 26.04px;
+    font-weight: bold;
+}
+
+.nav li {
+    display: inline-flex;
+}
+
+.nav-link {
+    color: #8a8a8a;
+    font-weight: bold;
+    padding: 15px 30px 15px;
+    transition: 0.3s;
+}
+
+.nav-link:hover,
+.open a {
+    color: #5285f2;
+}
+
+.open {
+    color: #5285f2;
+    background-color: #f0f7ff;
+    transition: 0.3s;
+}
+
+/* Dropdown Menu */
+.nav-item.dropdown .dropdown-menu {
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: none; /* Menghilangkan border */
+    display: none;
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    min-width: 200px;
+    z-index: 999;
+}
+
+.nav-item.dropdown .dropdown-menu a.dropdown-item {
+    color: #8a8a8a;
+    font-weight: bold;
+    padding: 10px 80px;
+    text-decoration: none;
+    display: flex;
+    transition: all 0.3s ease;
+}
+
+.nav-item.dropdown .dropdown-menu a.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+.template-container {
+    width: 75vw;
+    height: 100vh;
+    flex-grow: 1;
+    background-color: rgb(249, 250, 252);
+    padding: 30px;
+    margin-left: 0px; /* Adding margin to create space between sidebar and main content */
+}
+
+#m-2 {
+    margin-left: 3%;
+    margin-right: 3%;
+    width: 71vw;
+}
+
+#chat-box {
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    filter: drop-shadow(0px 4px 4px rgba(204, 204, 204, 0.25));
+    padding: 2rem;
+    width: 71vw;
+    height: 75vh;
+    border: none;
+    overflow-y: auto;
+    margin-top: 3%;
+    margin-left: 3%;
+}
+
+/*tabel di pages data*/
+.table-con {
+    height: 52vh;
+    overflow-y: auto;
+}
+
+.table {
+    height: 49vh;
+    border-collapse: collapse;
+    border-bottom: 1px solid #bebaba;
+}
+
+.table th,
+.table td {
+    padding: 1px;
+    text-align: center;
+}
+
+.table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: white;
+}
+
+.truncate {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.time-col{
+    border-right: none;
+}
+.data-col{
+    border-left: none;
+}
+
+.timecell-width {
+    vertical-align: middle;
+    height: 8vh; /* Anda dapat mengubah nilai ini sesuai kebutuhan */
+    width: 15vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-right: none;
+  }
+
+.datacell-width {
+    vertical-align: middle;
+    height: 8vh; /* Anda dapat mengubah nilai ini sesuai kebutuhan */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-left: none;
+  }
+
+/*tabel di pages RSSI*/
+#chat-box-parameter {
+    float: left;
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    filter: drop-shadow(0px 4px 4px rgba(204, 204, 204, 0.25));
+    padding: 2rem;
+    width: 45vw;
+    height: 75vh;
+    border: none;
+    overflow-y: auto;
+    margin-top: 3%;
+    margin-left: 3%;
+    overflow-x: hidden;
+}
+
+.table-con-parameter {
+    margin-top: 2%;
+    height: 52vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.table-parameter {
+    width: 40vw;
+    height: 49vh;
+    border-collapse: collapse;
+    border-bottom: 1px solid #bebaba;
+}
+
+.table-parameter th,
+.table-parameter td {
+    padding: 1px;
+    text-align: center;
+    border-bottom: 1px solid #bebaba;
+}
+
+.table-parameter th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.table-parameter tbody tr:nth-child(even) {
+    background-color: white;
+}
+
+.table-parameter tbody tr:nth-child(odd) {
+    background-color: white;
+}
+
+.rssi-width {
+    vertical-align: middle;
+    height: 8vh; /* Anda dapat mengubah nilai ini sesuai kebutuhan */
+    width: 15vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+#box-parameter {
+    text-align: center;
+    float: right;
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    filter: drop-shadow(0px 4px 4px rgba(204, 204, 204, 0.25));
+    padding: 2rem;
+    width: 21vw;
+    height: 35vh;
+    border: none;
+    overflow-y: auto;
+    margin-top: 3%;
+    margin-right: 0%;
+
+}
+
+.big-text {
+    margin-top: 17%;
+    font-size: 35px; /* Atur ukuran font sesuai kebutuhan */
+}
+
+#box-parameter-total {
+    text-align: center;
+    float: right;
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    filter: drop-shadow(0px 4px 4px rgba(204, 204, 204, 0.25));
+    padding: 2rem;
+    width: 21vw;
+    height: 35vh;
+    border: none;
+    overflow-y: auto;
+    margin-top: 3.2%;
+    margin-left: 3.1%;
+}
+
+.big-text-rssi {
+    font-size: 35px; /* Atur ukuran font sesuai kebutuhan */
+}
+
+#chat-box-parameter-analisis {
+    float: left;
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    filter: drop-shadow(0px 4px 4px rgba(204, 204, 204, 0.25));
+    padding: 2rem;
+    width: 71vw;
+    height: 80vh;
+    border: none;
+    overflow-y: auto;
+    margin-top: 3%;
+    margin-left: 3%;
+    overflow-x: hidden;
+}
+
+.table-con-parameter-analisis {
+    margin-top: 2%;
+    height: 60vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#map {
+    height: 45vh;
+    width: 65vw;
+}
